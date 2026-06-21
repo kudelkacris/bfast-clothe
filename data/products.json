@@ -296,21 +296,19 @@
   {
     "category": "vestido",
     "colors": [],
-    "description": "vestido corto hermoso",
-    "id": 1782067299812,
+    "description": "vestido rojo",
+    "id": 1782067448868,
     "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=750&fit=crop",
     "name": "vestido rojo",
-    "oldPrice": 50000,
-    "price": 100000,
+    "oldPrice": null,
+    "price": 1000000,
     "sizes": [
       "s",
       "m",
       "l",
       "xl"
     ],
-    "stock": 5,
-    "tags": [
-      "nuevo"
-    ]
+    "stock": 4,
+    "tags": []
   }
 ]
