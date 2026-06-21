@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFast Clothe — Moda real, zona sur</title>
+<meta name="description" content="BFast Clothe — ropa femenina de zona sur. Catálogo online, pedidos por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-bar">✓ Envíos a toda la Zona Sur · Probate en casa, pagás al recibir</div>
+
+<header>
+  <div class="nav-wrap">
+    <a href="#" class="brand">BFast <span>Clothe</span></a>
+    <ul class="nav-menu">
+      <li><a href="#mas-vendidos">Más vendidos</a></li>
+      <li><a href="#ofertas">Ofertas</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#nuevos">Nuevos ingresos</a></li>
+      <li><a href="#nosotras">Nosotras</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" onclick="toggleCart(true)">
+        🛒 Carrito <span class="cart-count">0</span>
+      </button>
+      <button class="menu-toggle">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Ropa con onda, <em>pensada para vos</em></h1>
+    <p>Catálogo online de BFast Clothe. Elegís, armás tu pedido y te lo coordinamos directo por WhatsApp. Sin vueltas.</p>
+    <div class="hero-btns">
+      <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+      <a href="#ofertas" class="btn btn-outline">Ver ofertas</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAS VENDIDOS -->
+<section class="section" id="mas-vendidos">
+  <div class="section-head">
+    <div>
+      <span class="tag">Lo que más se lleva</span>
+      <h2>Más vendidos</h2>
+    </div>
+    <a href="#catalogo" class="see-all">Ver todo →</a>
+  </div>
+  <div class="grid" id="mas-vendidos-grid"></div>
+</section>
+
+<!-- OFERTAS -->
+<section class="section section-alt" id="ofertas">
+  <div class="section-head">
+    <div>
+      <span class="tag">Por tiempo limitado</span>
+      <h2>Ofertas</h2>
+    </div>
+    <a href="#catalogo" class="see-all">Ver todo →</a>
+  </div>
+  <div class="grid" id="ofertas-grid"></div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="section">
+  <div class="promo-banner">
+    <h2>2x1 en remeras seleccionadas</h2>
+    <p>Esta semana en BFast Clothe. Consultá disponibilidad por WhatsApp.</p>
+    <a href="#catalogo" class="btn" style="background:#fff;color:#B06F58;">Quiero ver</a>
+  </div>
+</section>
+
+<!-- CATALOGO -->
+<section class="section" id="catalogo">
+  <div class="section-head">
+    <div>
+      <span class="tag">Catálogo completo</span>
+      <h2>Todos los productos</h2>
+    </div>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-chip active" data-cat="todos" onclick="filterCatalogo('todos')">Todos</button>
+    <button class="filter-chip" data-cat="conjuntos" onclick="filterCatalogo('conjuntos')">Conjuntos</button>
+    <button class="filter-chip" data-cat="vestidos" onclick="filterCatalogo('vestidos')">Vestidos</button>
+    <button class="filter-chip" data-cat="jeans" onclick="filterCatalogo('jeans')">Jeans</button>
+    <button class="filter-chip" data-cat="blusas" onclick="filterCatalogo('blusas')">Blusas</button>
+    <button class="filter-chip" data-cat="sweaters" onclick="filterCatalogo('sweaters')">Sweaters</button>
+    <button class="filter-chip" data-cat="buzos" onclick="filterCatalogo('buzos')">Buzos</button>
+    <button class="filter-chip" data-cat="camperas" onclick="filterCatalogo('camperas')">Camperas</button>
+  </div>
+  <div class="grid" id="catalogo-grid"></div>
+</section>
+
+<!-- NUEVOS INGRESOS -->
+<section class="section section-alt" id="nuevos">
+  <div class="section-head">
+    <div>
+      <span class="tag">Recién llegado</span>
+      <h2>Nuevos ingresos</h2>
+    </div>
+    <a href="#catalogo" class="see-all">Ver todo →</a>
+  </div>
+  <div class="grid" id="nuevos-grid"></div>
+</section>
+
+<!-- COMO COMPRAR -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="tag">Es muy fácil</span>
+      <h2>¿Cómo comprar?</h2>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Elegís tu ropa</h3>
+      <p>Recorré el catálogo y agregá lo que te guste al carrito, con talle y color.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Confirmás por WhatsApp</h3>
+      <p>Apretás "Hacer pedido" y se abre WhatsApp con todo tu pedido ya armado.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Te lo despachamos</h3>
+      <p>Coordinamos envío o retiro, y listo. Pagás al recibir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE LA MARCA -->
+<section class="section section-alt" id="nosotras">
+  <div class="about-wrap">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&h=560&fit=crop" alt="BFast Clothe">
+    </div>
+    <div class="about-text">
+      <span class="tag">Nuestra historia</span>
+      <h2>Moda real, hecha con cariño</h2>
+      <p>BFast Clothe nació como un emprendimiento chico, vendiendo por WhatsApp a pulmón y con muchas ganas. Hoy seguimos con esa misma esencia: atención cercana, ropa elegida con cuidado y buena onda en cada pedido.</p>
+      <p>Creemos en la ropa cómoda, que se adapta a cuerpos reales y a la vida real. Zona sur, para la gente de zona sur.</p>
+      <a href="#contacto" class="btn btn-primary">Conocé más</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA WHATSAPP -->
+<section class="section" id="contacto">
+  <div class="cta-wpp">
+    <div>
+      <h3>¿Tenés dudas sobre un talle o color?</h3>
+      <p>Escribinos directo, te respondemos al toque.</p>
+    </div>
+    <a class="btn-wpp" id="wpp-direct" href="#" target="_blank">💬 Escribir por WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <a href="#" class="brand">BFast <span>Clothe</span></a>
+      <p>Ropa femenina de zona sur, Argentina. Catálogo online con pedidos por WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tienda</h4>
+      <ul>
+        <li><a href="#mas-vendidos">Más vendidos</a></li>
+        <li><a href="#ofertas">Ofertas</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#nuevos">Nuevos ingresos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#">Guía de talles</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Cambios y devoluciones</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Seguinos</h4>
+      <ul>
+        <li><a href="#" target="_blank">Instagram</a></li>
+        <li><a href="#" id="wpp-footer" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 BFast Clothe — Zona Sur, Argentina. Hecho con cariño.</div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart(false)"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head">
+    <h3>Tu carrito</h3>
+    <button class="cart-close" onclick="toggleCart(false)">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0</span>
+    </div>
+    <button class="cart-checkout" onclick="checkoutWhatsApp()">💬 Hacer pedido por WhatsApp</button>
+    <div class="cart-note">El pago se coordina al recibir el pedido.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/carrito.js"></script>
+<script src="js/catalogo.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const link = `https://wa.me/${WHATSAPP_DUEÑA}?text=${encodeURIComponent('¡Hola! Tengo una duda sobre un producto de BFast Clothe 😊')}`;
+    document.getElementById('wpp-direct').href = link;
+    document.getElementById('wpp-footer').href = link;
+  });
+</script>
+</body>
+</html>

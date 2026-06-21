@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Carga — BFast Clothe</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { background: var(--crema-2); }
+  .admin-wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .admin-head { margin-bottom: 30px; }
+  .admin-head h1 { font-size: 28px; margin-bottom: 8px; }
+  .admin-head p { color: var(--texto-claro); font-size: 14.5px; }
+  .admin-card { background: var(--blanco); border-radius: var(--radius); padding: 28px; margin-bottom: 28px; box-shadow: 0 2px 10px var(--sombra); }
+  .admin-card h2 { font-size: 19px; margin-bottom: 18px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-grid label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--texto); }
+  .form-grid input, .form-grid textarea {
+    padding: 10px 14px; border: 1.5px solid var(--borde); border-radius: 8px; font-size: 14px; font-family: inherit;
+  }
+  .full { grid-column: 1 / -1; }
+  .checks { display: flex; gap: 18px; font-weight: 500; font-size: 13.5px; align-items: center; }
+  .checks label { flex-direction: row; align-items: center; gap: 6px; }
+  .admin-submit { margin-top: 18px; }
+  .admin-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 0; border-bottom: 1px solid var(--crema-2);
+  }
+  .admin-row img { width: 50px; height: 62px; object-fit: cover; border-radius: 6px; }
+  .admin-row-info { flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; }
+  .admin-row-info span { color: var(--texto-claro); font-size: 12.5px; }
+  .admin-del { background: var(--oferta); color: #fff; padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
+  .admin-actions { display: flex; gap: 12px; margin-top: 20px; }
+  .back-link { font-size: 13.5px; color: var(--terracota); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="admin-wrap">
+  <div class="admin-head">
+    <a href="index.html" class="back-link">← Volver a la tienda</a>
+    <h1>Panel de carga · BFast Clothe</h1>
+    <p>Cargá ropa nueva acá. Cuando termines, apretá <strong>"Descargar products.json"</strong> y reemplazá ese archivo en la carpeta <code>data/</code> del sitio (o mandámelo a mí y lo subo).</p>
+  </div>
+
+  <div class="admin-card">
+    <h2>Agregar producto nuevo</h2>
+    <form id="admin-form" onsubmit="addProductFromForm(event)">
+      <div class="form-grid">
+        <label class="full">Nombre del producto
+          <input type="text" name="name" required placeholder="Ej: Vestido Lencero Midi">
+        </label>
+        <label>Categoría
+          <input type="text" name="category" required placeholder="Ej: vestidos, jeans, buzos...">
+        </label>
+        <label>Precio
+          <input type="number" name="price" required placeholder="Ej: 19900">
+        </label>
+        <label>Precio anterior (si está en oferta)
+          <input type="number" name="oldPrice" placeholder="Opcional">
+        </label>
+        <label>Stock
+          <input type="number" name="stock" placeholder="Ej: 10">
+        </label>
+        <label>Talles (separados por coma)
+          <input type="text" name="sizes" placeholder="S, M, L, XL">
+        </label>
+        <label>Colores (separados por coma)
+          <input type="text" name="colors" placeholder="Negro, Beige">
+        </label>
+        <label class="full">URL de la foto
+          <input type="text" name="image" placeholder="Pegá el link de la foto del producto">
+        </label>
+        <label class="full">Descripción corta
+          <textarea name="description" rows="2" placeholder="Ej: Tela suave, ideal para el día a día."></textarea>
+        </label>
+        <div class="full checks">
+          <label><input type="checkbox" name="tagOferta"> En oferta</label>
+          <label><input type="checkbox" name="tagNuevo"> Nuevo ingreso</label>
+          <label><input type="checkbox" name="tagVendido"> Más vendido</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary admin-submit">+ Agregar producto</button>
+    </form>
+  </div>
+
+  <div class="admin-card">
+    <h2>Productos cargados</h2>
+    <div id="admin-list"></div>
+    <div class="admin-actions">
+      <button class="btn btn-primary" onclick="exportJSON()">⬇ Descargar products.json</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="admin-toast"></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
