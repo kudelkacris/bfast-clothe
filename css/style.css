@@ -46,6 +46,43 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--terracota-oscur
   letter-spacing: 0.3px;
 }
 
+/* ===== Marquee — firma de marca ===== */
+.marquee {
+  background: var(--texto);
+  color: var(--crema);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee-scroll 26s linear infinite;
+}
+.marquee-track span {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-right: 0;
+  color: var(--terracota-claro);
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===== Scroll reveal ("barridos") ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.in-view { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track { animation: none; }
+}
+
 /* ===== Header ===== */
 header {
   background: var(--crema);
@@ -167,6 +204,14 @@ header {
   color: var(--terracota-oscuro);
   font-style: italic;
   position: relative;
+  display: inline-block;
+}
+.squiggle {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 12px;
 }
 .hero p {
   font-size: 16.5px;
@@ -205,6 +250,12 @@ header {
   box-shadow: 0 16px 32px -8px rgba(74,64,56,0.2);
 }
 .hero-img-main img, .hero-img-accent img { width: 100%; height: 100%; object-fit: cover; }
+.hero-img-main img {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.hero-img-main img.active { opacity: 1; }
 .hero-badge-float {
   position: absolute;
   bottom: 18px;
@@ -285,6 +336,18 @@ header {
 .card-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--crema-2); }
 .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .card:hover .card-img-wrap img { transform: scale(1.06); }
+.card-img-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 35%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left .65s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.card:hover .card-img-wrap::after { left: 135%; }
 
 .badge {
   position: absolute;

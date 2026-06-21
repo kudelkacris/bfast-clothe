@@ -33,12 +33,20 @@
   </div>
 </header>
 
+<!-- MARQUEE — firma de marca -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>✦ NUEVA TEMPORADA &nbsp; ✦ &nbsp; ENVÍOS A TODA LA ZONA SUR &nbsp; ✦ &nbsp; PROBATE EN CASA &nbsp; ✦ &nbsp; PAGÁS AL RECIBIR &nbsp; ✦ &nbsp; HECHO CON CARIÑO &nbsp; </span>
+    <span>✦ NUEVA TEMPORADA &nbsp; ✦ &nbsp; ENVÍOS A TODA LA ZONA SUR &nbsp; ✦ &nbsp; PROBATE EN CASA &nbsp; ✦ &nbsp; PAGÁS AL RECIBIR &nbsp; ✦ &nbsp; HECHO CON CARIÑO &nbsp; </span>
+  </div>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-wrap">
     <div class="hero-inner">
       <span class="eyebrow">Zona Sur · Argentina</span>
-      <h1>Ropa con onda,<br><em>pensada para vos</em></h1>
+      <h1>Ropa con onda,<br><em>pensada para vos<svg class="squiggle" viewBox="0 0 200 16" preserveAspectRatio="none"><path d="M2 10 Q 20 2, 38 10 T 74 10 T 110 10 T 146 10 T 182 10" fill="none" stroke="#C98B73" stroke-width="4" stroke-linecap="round"/></svg></em></h1>
       <p>Catálogo online de BFast Clothe. Elegís, armás tu pedido y te lo coordinamos directo por WhatsApp. Sin vueltas.</p>
       <div class="hero-btns">
         <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
@@ -51,8 +59,10 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-img-main">
-        <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=700&h=850&fit=crop" alt="Look BFast Clothe">
+      <div class="hero-img-main" id="hero-carousel">
+        <img class="active" src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=700&h=850&fit=crop" alt="Look BFast Clothe 1">
+        <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=700&h=850&fit=crop" alt="Look BFast Clothe 2">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=700&h=850&fit=crop" alt="Look BFast Clothe 3">
       </div>
       <div class="hero-img-accent">
         <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=420&h=420&fit=crop" alt="Detalle BFast Clothe">
@@ -64,7 +74,7 @@
 
 <!-- MAS VENDIDOS -->
 <section class="section" id="mas-vendidos">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <span class="tag">Lo que más se lleva</span>
       <h2>Más vendidos</h2>
@@ -76,7 +86,7 @@
 
 <!-- OFERTAS -->
 <section class="section section-alt" id="ofertas">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <span class="tag">Por tiempo limitado</span>
       <h2>Ofertas</h2>
@@ -88,7 +98,7 @@
 
 <!-- PROMO BANNER -->
 <section class="section">
-  <div class="promo-banner">
+  <div class="promo-banner reveal">
     <div class="promo-text">
       <span class="tag">Esta semana</span>
       <h2>2x1 en remeras seleccionadas</h2>
@@ -103,7 +113,7 @@
 
 <!-- CATALOGO -->
 <section class="section" id="catalogo">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <span class="tag">Catálogo completo</span>
       <h2>Todos los productos</h2>
@@ -124,7 +134,7 @@
 
 <!-- NUEVOS INGRESOS -->
 <section class="section section-alt" id="nuevos">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <span class="tag">Recién llegado</span>
       <h2>Nuevos ingresos</h2>
@@ -136,13 +146,13 @@
 
 <!-- COMO COMPRAR -->
 <section class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div>
       <span class="tag">Es muy fácil</span>
       <h2>¿Cómo comprar?</h2>
     </div>
   </div>
-  <div class="steps">
+  <div class="steps reveal">
     <div class="step">
       <div class="step-num">01</div>
       <h3>Elegís tu ropa</h3>
@@ -163,7 +173,7 @@
 
 <!-- SOBRE LA MARCA -->
 <section class="section section-alt" id="nosotras">
-  <div class="about-wrap">
+  <div class="about-wrap reveal">
     <div class="about-img">
       <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&h=560&fit=crop" alt="BFast Clothe">
     </div>
@@ -179,7 +189,7 @@
 
 <!-- CTA WHATSAPP -->
 <section class="section" id="contacto">
-  <div class="cta-wpp">
+  <div class="cta-wpp reveal">
     <div class="cta-wpp-left">
       <div class="cta-avatar">
         <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&fit=crop" alt="Atención BFast Clothe">
@@ -251,6 +261,7 @@
 
 <script src="js/carrito.js"></script>
 <script src="js/catalogo.js"></script>
+<script src="js/animations.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const link = `https://wa.me/${WHATSAPP_DUEÑA}?text=${encodeURIComponent('¡Hola! Tengo una duda sobre un producto de BFast Clothe 😊')}`;
