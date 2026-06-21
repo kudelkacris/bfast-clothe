@@ -294,7 +294,7 @@
     ]
   },
   {
-    "category": "vestidos",
+    "category": "vestido",
     "colors": [],
     "description": "vestido rojo",
     "id": 1782067448868,
@@ -302,6 +302,24 @@
     "name": "vestido rojo",
     "oldPrice": null,
     "price": 1000000,
+    "sizes": [
+      "s",
+      "m",
+      "l",
+      "xl"
+    ],
+    "stock": 4,
+    "tags": []
+  },
+  {
+    "category": "vestidos",
+    "colors": [],
+    "description": "vestido rojo",
+    "id": 1782068371842,
+    "image": "assets/img/productos/1782068364780-bs-2.jpg",
+    "name": "vestido rojo",
+    "oldPrice": 75000,
+    "price": 50000,
     "sizes": [
       "s",
       "m",
