@@ -17,9 +17,10 @@
   .admin-card .card-hint { font-size: 13px; color: var(--texto-claro); margin-bottom: 18px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-grid label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--texto); }
-  .form-grid input, .form-grid textarea {
-    padding: 10px 14px; border: 1.5px solid var(--borde); border-radius: 8px; font-size: 14px; font-family: inherit;
+  .form-grid input, .form-grid textarea, .form-grid select {
+    padding: 10px 14px; border: 1.5px solid var(--borde); border-radius: 8px; font-size: 14px; font-family: inherit; background: var(--blanco);
   }
+  .image-upload-status.error { color: var(--oferta); font-weight: 600; }
   .full { grid-column: 1 / -1; }
   .checks { display: flex; gap: 18px; font-weight: 500; font-size: 13.5px; align-items: center; }
   .checks label { flex-direction: row; align-items: center; gap: 6px; }
@@ -97,7 +98,20 @@
           <input type="text" name="name" required placeholder="Ej: Vestido Lencero Midi">
         </label>
         <label>Categoría
-          <input type="text" name="category" required placeholder="Ej: vestidos, jeans, buzos...">
+          <select name="category" id="category-select" required>
+            <option value="">Elegí una categoría...</option>
+            <option value="conjuntos">Conjuntos</option>
+            <option value="vestidos">Vestidos</option>
+            <option value="jeans">Jeans</option>
+            <option value="blusas">Blusas</option>
+            <option value="sweaters">Sweaters</option>
+            <option value="buzos">Buzos</option>
+            <option value="camperas">Camperas</option>
+            <option value="pantalones">Pantalones</option>
+            <option value="camisas">Camisas</option>
+            <option value="faldas">Faldas</option>
+            <option value="tops">Tops</option>
+          </select>
         </label>
         <label>Precio
           <input type="number" name="price" required placeholder="Ej: 19900">

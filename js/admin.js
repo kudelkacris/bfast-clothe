@@ -4,6 +4,7 @@ const GH_TOKEN_KEY = 'bfast_admin_token';
 
 let adminProducts = [];
 let editingId = null;
+let imageUploadState = 'none'; // none | uploading | done | error
 
 async function adminInit() {
   const res = await fetch('data/products.json');
@@ -52,6 +53,7 @@ function deleteProduct(i) {
 function editProduct(i) {
   const p = adminProducts[i];
   editingId = p.id;
+  imageUploadState = 'done';
   const f = document.getElementById('admin-form');
   f.name.value = p.name;
   f.category.value = p.category;
@@ -79,12 +81,14 @@ function editProduct(i) {
 
 function cancelEdit() {
   editingId = null;
+  imageUploadState = 'none';
   document.getElementById('admin-form').reset();
   document.getElementById('image-url-hidden').value = '';
   document.getElementById('image-url-manual').value = '';
   const preview = document.getElementById('image-preview');
   preview.src = '';
   preview.style.display = 'none';
+  document.getElementById('image-upload-status').classList.remove('error');
   document.getElementById('image-upload-status').textContent = 'Elegí una foto desde tu celu o PC.';
   document.getElementById('form-title').textContent = 'Agregar producto nuevo';
   document.getElementById('form-submit-btn').textContent = '+ Agregar producto';
@@ -94,6 +98,16 @@ function cancelEdit() {
 function addProductFromForm(e) {
   e.preventDefault();
   const f = e.target;
+
+  if (imageUploadState === 'uploading') {
+    alert('Esperá que termine de subir la foto antes de guardar (un par de segundos).');
+    return;
+  }
+  if (imageUploadState === 'error') {
+    alert('La foto no se subió bien. Volvé a elegirla, o pegá un link en el campo de abajo, antes de guardar.');
+    return;
+  }
+
   const tags = [];
   if (f.tagOferta.checked) tags.push('oferta');
   if (f.tagNuevo.checked) tags.push('nuevo');
@@ -126,6 +140,7 @@ function addProductFromForm(e) {
     document.getElementById('image-upload-status').textContent = 'Elegí una foto desde tu celu o PC.';
     showAdminToast('Producto agregado. No olvides publicar.');
   }
+  imageUploadState = 'none';
   renderAdminList();
 }
 
@@ -133,10 +148,15 @@ function addProductFromForm(e) {
 function setManualImage(url) {
   document.getElementById('image-url-hidden').value = url.trim();
   const preview = document.getElementById('image-preview');
+  const statusEl = document.getElementById('image-upload-status');
   if (url.trim()) {
     preview.src = url.trim();
     preview.style.display = 'block';
-    document.getElementById('image-upload-status').textContent = 'Usando el link pegado.';
+    statusEl.classList.remove('error');
+    statusEl.textContent = 'Usando el link pegado.';
+    imageUploadState = 'done';
+  } else if (imageUploadState !== 'uploading') {
+    imageUploadState = 'none';
   }
 }
 
@@ -171,12 +191,19 @@ async function handleImageUpload(e) {
   const token = localStorage.getItem(GH_TOKEN_KEY);
 
   if (!token) {
-    showAdminToast('Primero conectá el token arriba para poder subir fotos.');
+    alert('Primero conectá el token arriba (sección "Conexión con la tienda") para poder subir fotos. La foto que elegiste NO se subió.');
+    statusEl.classList.add('error');
+    statusEl.textContent = '✕ Falta conectar el token. Esta foto no se subió.';
+    imageUploadState = 'error';
     e.target.value = '';
     return;
   }
 
+  imageUploadState = 'uploading';
+  statusEl.classList.remove('error');
   statusEl.textContent = 'Subiendo foto...';
+  document.getElementById('form-submit-btn').disabled = true;
+
   try {
     const base64 = await resizeImageToBase64(file, 1000, 0.82);
     preview.src = `data:image/jpeg;base64,${base64}`;
@@ -201,16 +228,26 @@ async function handleImageUpload(e) {
     if (!res.ok) {
       const body = await res.text();
       console.error('Error subiendo foto:', res.status, body);
-      statusEl.textContent = 'Error al subir la foto. Probá de nuevo.';
+      statusEl.classList.add('error');
+      statusEl.textContent = '✕ Error al subir la foto. Volvé a intentar antes de guardar.';
+      imageUploadState = 'error';
+      alert('La foto no se pudo subir. Volvé a elegirla o pegá un link antes de guardar el producto.');
       return;
     }
 
     document.getElementById('image-url-hidden').value = path;
     document.getElementById('image-url-manual').value = '';
+    statusEl.classList.remove('error');
     statusEl.textContent = '✓ Foto subida. Recordá publicar al final.';
+    imageUploadState = 'done';
   } catch (err) {
     console.error(err);
-    statusEl.textContent = 'Error al procesar la foto. Probá con otra imagen.';
+    statusEl.classList.add('error');
+    statusEl.textContent = '✕ Error al procesar la foto. Probá con otra imagen.';
+    imageUploadState = 'error';
+    alert('Hubo un error con esta foto. Probá con otra antes de guardar el producto.');
+  } finally {
+    document.getElementById('form-submit-btn').disabled = false;
   }
 }
 
