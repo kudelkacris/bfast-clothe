@@ -19,12 +19,14 @@ function cardHTML(p) {
     : p.tags.includes('nuevo') ? '<span class="badge badge-nuevo">Nuevo</span>'
     : p.tags.includes('mas-vendido') ? '<span class="badge badge-vendido">Más vendido</span>' : '';
   const oldPrice = p.oldPrice ? `<span class="card-old-price">${money(p.oldPrice)}</span>` : '';
+  const discount = p.oldPrice ? `<span class="card-discount">-${Math.round((1 - p.price / p.oldPrice) * 100)}%</span>` : '';
   return `
     <div class="card" data-id="${p.id}">
       <div class="card-img-wrap">
         ${badge}
+        <button class="card-fav" onclick="event.stopPropagation()" aria-label="Favorito">♡</button>
         <img src="${p.image}" alt="${p.name}" loading="lazy">
-        <div class="quick-add" onclick="quickAdd(${p.id})">Agregar al carrito</div>
+        <div class="quick-add" onclick="quickAdd(${p.id})">+ Agregar al carrito</div>
       </div>
       <div class="card-info">
         <div class="card-cat">${p.category}</div>
@@ -32,6 +34,7 @@ function cardHTML(p) {
         <div class="card-price-row">
           <span class="card-price">${money(p.price)}</span>
           ${oldPrice}
+          ${discount}
         </div>
       </div>
     </div>`;
