@@ -60,7 +60,12 @@ function editProduct(i) {
   f.stock.value = p.stock;
   f.sizes.value = p.sizes.join(', ');
   f.colors.value = p.colors.join(', ');
-  f.image.value = p.image;
+  document.getElementById('image-url-hidden').value = p.image;
+  document.getElementById('image-url-manual').value = p.image;
+  const preview = document.getElementById('image-preview');
+  preview.src = p.image;
+  preview.style.display = 'block';
+  document.getElementById('image-upload-status').textContent = 'Foto actual del producto.';
   f.description.value = p.description;
   f.tagOferta.checked = p.tags.includes('oferta');
   f.tagNuevo.checked = p.tags.includes('nuevo');
@@ -75,6 +80,12 @@ function editProduct(i) {
 function cancelEdit() {
   editingId = null;
   document.getElementById('admin-form').reset();
+  document.getElementById('image-url-hidden').value = '';
+  document.getElementById('image-url-manual').value = '';
+  const preview = document.getElementById('image-preview');
+  preview.src = '';
+  preview.style.display = 'none';
+  document.getElementById('image-upload-status').textContent = 'Elegí una foto desde tu celu o PC.';
   document.getElementById('form-title').textContent = 'Agregar producto nuevo';
   document.getElementById('form-submit-btn').textContent = '+ Agregar producto';
   document.getElementById('form-cancel-btn').style.display = 'none';
@@ -109,9 +120,98 @@ function addProductFromForm(e) {
   } else {
     adminProducts.push({ id: Date.now(), ...data });
     f.reset();
+    const preview = document.getElementById('image-preview');
+    preview.src = '';
+    preview.style.display = 'none';
+    document.getElementById('image-upload-status').textContent = 'Elegí una foto desde tu celu o PC.';
     showAdminToast('Producto agregado. No olvides publicar.');
   }
   renderAdminList();
+}
+
+// ===== Foto del producto =====
+function setManualImage(url) {
+  document.getElementById('image-url-hidden').value = url.trim();
+  const preview = document.getElementById('image-preview');
+  if (url.trim()) {
+    preview.src = url.trim();
+    preview.style.display = 'block';
+    document.getElementById('image-upload-status').textContent = 'Usando el link pegado.';
+  }
+}
+
+function resizeImageToBase64(file, maxWidth, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxWidth / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl.split(',')[1]);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('image-upload-status');
+  const preview = document.getElementById('image-preview');
+  const token = localStorage.getItem(GH_TOKEN_KEY);
+
+  if (!token) {
+    showAdminToast('Primero conectá el token arriba para poder subir fotos.');
+    e.target.value = '';
+    return;
+  }
+
+  statusEl.textContent = 'Subiendo foto...';
+  try {
+    const base64 = await resizeImageToBase64(file, 1000, 0.82);
+    preview.src = `data:image/jpeg;base64,${base64}`;
+    preview.style.display = 'block';
+
+    const safeName = file.name.toLowerCase().replace(/\.[^.]+$/, '').replace(/[^a-z0-9]+/g, '-');
+    const path = `assets/img/productos/${Date.now()}-${safeName || 'foto'}.jpg`;
+
+    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      },
+      body: JSON.stringify({
+        message: `Subir foto de producto: ${file.name}`,
+        content: base64
+      })
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      console.error('Error subiendo foto:', res.status, body);
+      statusEl.textContent = 'Error al subir la foto. Probá de nuevo.';
+      return;
+    }
+
+    document.getElementById('image-url-hidden').value = path;
+    document.getElementById('image-url-manual').value = '';
+    statusEl.textContent = '✓ Foto subida. Recordá publicar al final.';
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = 'Error al procesar la foto. Probá con otra imagen.';
+  }
 }
 
 function exportJSON() {

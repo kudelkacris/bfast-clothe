@@ -52,6 +52,15 @@
   .btn-publish { background: #2BB673; color: #fff; }
   .btn-publish:hover { background: #239a5f; }
   .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
+
+  .image-upload-box { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .image-preview {
+    width: 70px; height: 88px; object-fit: cover; border-radius: 8px;
+    border: 1.5px solid var(--borde); background: var(--crema-2); flex-shrink: 0;
+  }
+  .image-upload-status { font-size: 12.5px; color: var(--texto-claro); }
+  .image-manual-row { margin-top: 10px; }
+  .image-manual-row input { font-size: 13px !important; }
 </style>
 </head>
 <body>
@@ -81,7 +90,7 @@
 
   <div class="admin-card">
     <h2 id="form-title">Agregar producto nuevo</h2>
-    <p class="card-hint">Completá los datos. Si dejás la foto en blanco, mandala por WhatsApp y se la agrega a mano.</p>
+    <p class="card-hint">Completá los datos. La foto se sube directo desde tu celu o PC.</p>
     <form id="admin-form" onsubmit="addProductFromForm(event)">
       <div class="form-grid">
         <label class="full">Nombre del producto
@@ -105,8 +114,18 @@
         <label>Colores (separados por coma)
           <input type="text" name="colors" placeholder="Negro, Beige">
         </label>
-        <label class="full">URL de la foto
-          <input type="text" name="image" placeholder="¿No tenés link? Dejalo en blanco y mandanos la foto por WhatsApp">
+        <label class="full">Foto del producto
+          <div class="image-upload-box">
+            <img class="image-preview" id="image-preview" src="" alt="" style="display:none">
+            <div>
+              <input type="file" id="image-file-input" accept="image/*" onchange="handleImageUpload(event)">
+              <div class="image-upload-status" id="image-upload-status">Elegí una foto desde tu celu o PC.</div>
+            </div>
+          </div>
+          <div class="image-manual-row">
+            <input type="text" id="image-url-manual" placeholder="O pegá un link de foto en vez de subir un archivo" oninput="setManualImage(this.value)">
+          </div>
+          <input type="hidden" name="image" id="image-url-hidden">
         </label>
         <label class="full">Descripción corta
           <textarea name="description" rows="2" placeholder="Ej: Tela suave, ideal para el día a día."></textarea>
