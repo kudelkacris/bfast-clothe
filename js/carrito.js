@@ -66,24 +66,35 @@ function updateCartUI() {
   } else {
     itemsEl.innerHTML = cart.map((item, i) => `
       <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-meta">Talle ${item.size} · ${item.color}</div>
-          <div class="cart-item-qty">
-            <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
-            <span>${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
-            <span class="cart-item-price">${money(item.price * item.qty)}</span>
+        <div class="cart-item-swipe-bg">Quitar →</div>
+        <div class="cart-item-swipe-content">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">Talle ${item.size} · ${item.color}</div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+              <span>${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+              <span class="cart-item-price">${money(item.price * item.qty)}</span>
+            </div>
+            <div class="cart-item-remove" onclick="removeFromCart(${i})">Quitar</div>
           </div>
-          <div class="cart-item-remove" onclick="removeFromCart(${i})">Quitar</div>
         </div>
       </div>
     `).join('');
   }
 
   const totalEl = document.getElementById('cart-total');
-  if (totalEl) totalEl.textContent = money(cartTotal());
+  if (totalEl) {
+    const newTotal = money(cartTotal());
+    if (totalEl.textContent !== newTotal) {
+      totalEl.textContent = newTotal;
+      totalEl.classList.remove('flip');
+      void totalEl.offsetWidth;
+      totalEl.classList.add('flip');
+    }
+  }
 }
 
 function toggleCart(open) {

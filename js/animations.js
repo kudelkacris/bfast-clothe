@@ -100,6 +100,64 @@ function startCountdown() {
   setInterval(tick, 1000);
 }
 
+// ===== Parallax sutil en el hero =====
+function startHeroParallax() {
+  const visual = document.querySelector('.hero-visual');
+  if (!visual || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 980px)').matches) return;
+  window.addEventListener('scroll', () => {
+    const offset = Math.min(window.scrollY * 0.12, 60);
+    visual.style.transform = `translateY(${offset}px)`;
+  }, { passive: true });
+}
+
+// ===== Barra sticky "Agregar" en el modal (mobile) =====
+function startModalStickyBar() {
+  const infoCol = document.querySelector('.modal-info-col');
+  const bar = document.getElementById('modal-sticky-bar');
+  if (!infoCol || !bar) return;
+  infoCol.addEventListener('scroll', () => {
+    const actions = document.querySelector('.modal-actions');
+    if (!actions) return;
+    const actionsBottom = actions.getBoundingClientRect().bottom;
+    bar.classList.toggle('visible', actionsBottom > window.innerHeight);
+  }, { passive: true });
+}
+
+// ===== Swipe para eliminar del carrito (mobile) =====
+function startCartSwipe() {
+  const container = document.getElementById('cart-items');
+  if (!container) return;
+  let startX = 0, currentItem = null, content = null;
+
+  container.addEventListener('touchstart', e => {
+    content = e.target.closest('.cart-item-swipe-content');
+    if (!content) return;
+    currentItem = content.closest('.cart-item');
+    startX = e.touches[0].clientX;
+    content.style.transition = 'none';
+  }, { passive: true });
+
+  container.addEventListener('touchmove', e => {
+    if (!content) return;
+    const dx = Math.min(0, e.touches[0].clientX - startX);
+    content.style.transform = `translateX(${dx}px)`;
+  }, { passive: true });
+
+  container.addEventListener('touchend', e => {
+    if (!content) return;
+    content.style.transition = 'transform .25s ease';
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx < -80 && currentItem) {
+      const idx = Array.from(container.children).indexOf(currentItem);
+      removeFromCart(idx);
+    } else {
+      content.style.transform = 'translateX(0)';
+    }
+    content = null; currentItem = null;
+  }, { passive: true });
+}
+
 // ===== Mobile nav =====
 function openMobileNav() {
   document.getElementById('mobile-nav')?.classList.add('open');
@@ -120,4 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   startActiveNav();
   startScrollTop();
   startCountdown();
+  startHeroParallax();
+  startModalStickyBar();
+  startCartSwipe();
 });

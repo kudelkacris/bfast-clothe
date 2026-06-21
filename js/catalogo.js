@@ -1,8 +1,10 @@
 let PRODUCTS = [];
 let activeFilter = 'todos';
+let activeSort = 'relevancia';
 let modalProduct = null;
 let modalSize = '';
 let modalColor = '';
+let modalQty = 1;
 
 // Wishlist persistida en localStorage
 let wishlist = JSON.parse(localStorage.getItem('bfast_wishlist') || '[]');
@@ -26,7 +28,24 @@ const REVIEWS = [
   { name: "Agustina P.", city: "Banfield", rating: 5, text: "Primera compra y encantada. Ropa hermosa, buen precio y envío express a zona sur. ¡Gracias BFast!", product: "Blusas" },
 ];
 
+function skeletonCardHTML() {
+  return `
+    <div class="skeleton-card">
+      <div class="skeleton-img skeleton-shimmer"></div>
+      <div class="skeleton-line skeleton-shimmer w-60"></div>
+      <div class="skeleton-line skeleton-shimmer w-40"></div>
+    </div>`;
+}
+
+function renderSkeletons() {
+  ['mas-vendidos-grid', 'ofertas-grid', 'nuevos-grid', 'catalogo-grid'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = skeletonCardHTML().repeat(4);
+  });
+}
+
 async function loadProducts() {
+  renderSkeletons();
   const res = await fetch('data/products.json');
   PRODUCTS = await res.json();
   renderSection('mas-vendidos-grid', PRODUCTS.filter(p => p.tags.includes('mas-vendido')));
@@ -59,7 +78,7 @@ function cardHTML(p, index) {
         ${stockBadge}
         <button class="card-fav${isFav ? ' favorited' : ''}" data-fav-id="${p.id}" onclick="toggleWishlist(${p.id}, event)" aria-label="Favorito">${isFav ? '♥' : '♡'}</button>
         <img src="${p.image}" alt="${p.name}" loading="lazy">
-        <div class="quick-add" onclick="event.stopPropagation(); quickAdd(${p.id})">+ Agregar al carrito</div>
+        <div class="quick-add" onclick="event.stopPropagation(); quickAdd(${p.id}, event)">+ Agregar al carrito</div>
       </div>
       <div class="card-info">
         <div class="card-cat">${p.category}</div>
@@ -113,27 +132,44 @@ function renderReviews() {
   `).join('');
 }
 
+function applySort(items) {
+  const sorted = [...items];
+  if (activeSort === 'precio-asc') sorted.sort((a, b) => a.price - b.price);
+  else if (activeSort === 'precio-desc') sorted.sort((a, b) => b.price - a.price);
+  else if (activeSort === 'nuevo') sorted.sort((a, b) => (b.tags.includes('nuevo') ? 1 : 0) - (a.tags.includes('nuevo') ? 1 : 0) || b.id - a.id);
+  else if (activeSort === 'vendido') sorted.sort((a, b) => (b.tags.includes('mas-vendido') ? 1 : 0) - (a.tags.includes('mas-vendido') ? 1 : 0));
+  return sorted;
+}
+
+function getCatalogoItems() {
+  const searchQ = document.getElementById('catalog-search-input')?.value.toLowerCase().trim() || '';
+  let items = activeFilter === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeFilter);
+  if (searchQ) items = items.filter(p => p.name.toLowerCase().includes(searchQ) || p.category.toLowerCase().includes(searchQ));
+  return applySort(items);
+}
+
 function filterCatalogo(cat) {
   activeFilter = cat;
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
-  const searchQ = document.getElementById('catalog-search-input')?.value.toLowerCase().trim() || '';
-  let items = cat === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
-  if (searchQ) items = items.filter(p => p.name.toLowerCase().includes(searchQ) || p.category.toLowerCase().includes(searchQ));
-  renderCatalogo(items);
+  renderCatalogo(getCatalogoItems());
 }
 
-function searchCatalogo(query) {
-  const q = query.toLowerCase().trim();
-  let items = activeFilter === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeFilter);
-  if (q) items = items.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-  renderCatalogo(items);
+function searchCatalogo() {
+  renderCatalogo(getCatalogoItems());
 }
 
-function quickAdd(id) {
+function sortCatalogo(value) {
+  activeSort = value;
+  renderCatalogo(getCatalogoItems());
+}
+
+function quickAdd(id, event) {
   const p = PRODUCTS.find(p => p.id === id);
   addToCart(p, p.sizes[0], p.colors[0], 1);
   showToast(`✓ Agregado: ${p.name}`);
   bounceCart();
+  const img = event?.target?.closest('.card')?.querySelector('img');
+  if (img) flyToCart(img);
 }
 
 function bounceCart() {
@@ -176,6 +212,8 @@ function openProductModal(id) {
   modalProduct = p;
   modalSize = p.sizes[0];
   modalColor = p.colors[0];
+  modalQty = 1;
+  document.getElementById('modal-qty').textContent = '1';
 
   document.getElementById('modal-img').src = p.image;
   document.getElementById('modal-cat').textContent = p.category;
@@ -200,10 +238,81 @@ function openProductModal(id) {
 
   const wppMsg = `¡Hola! Me interesa *${p.name}* (${money(p.price)}). ¿Tienen disponibilidad?`;
   document.getElementById('modal-wpp-btn').href = `https://wa.me/${WHATSAPP_DUEÑA}?text=${encodeURIComponent(wppMsg)}`;
+  document.getElementById('sticky-price').textContent = money(p.price);
+
+  renderRelatedProducts(p);
 
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('product-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function renderRelatedProducts(p) {
+  const wrap = document.getElementById('related-wrap');
+  const grid = document.getElementById('related-grid');
+  const related = PRODUCTS.filter(o => o.category === p.category && o.id !== p.id).slice(0, 3);
+  if (!related.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  grid.innerHTML = related.map(o => `
+    <div class="related-card" onclick="openProductModal(${o.id})">
+      <img src="${o.image}" alt="${o.name}">
+      <div class="rc-name">${o.name}</div>
+      <div class="rc-price">${money(o.price)}</div>
+    </div>
+  `).join('');
+}
+
+function changeModalQty(delta) {
+  modalQty = Math.max(1, modalQty + delta);
+  document.getElementById('modal-qty').textContent = modalQty;
+}
+
+function shareProduct() {
+  if (!modalProduct) return;
+  const p = modalProduct;
+  const text = `Mirá "${p.name}" de BFast Clothe — ${money(p.price)}`;
+  const url = location.href.split('#')[0];
+  if (navigator.share) {
+    navigator.share({ title: p.name, text, url }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(`${text} ${url}`).then(() => showToast('Link copiado, ¡compartilo!'));
+  } else {
+    showToast('No se pudo compartir en este navegador');
+  }
+}
+
+function openSizeGuide() {
+  document.getElementById('size-guide-wpp').href = `https://wa.me/${WHATSAPP_DUEÑA}?text=${encodeURIComponent('¡Hola! Tengo una duda con los talles 😊')}`;
+  document.getElementById('size-guide-overlay').classList.add('open');
+  document.getElementById('size-guide-modal').classList.add('open');
+}
+
+function closeSizeGuide() {
+  document.getElementById('size-guide-overlay').classList.remove('open');
+  document.getElementById('size-guide-modal').classList.remove('open');
+}
+
+function flyToCart(imgEl) {
+  if (!imgEl) return;
+  const cartBtn = document.querySelector('.cart-btn');
+  if (!cartBtn) return;
+  const startRect = imgEl.getBoundingClientRect();
+  const endRect = cartBtn.getBoundingClientRect();
+  const clone = imgEl.cloneNode();
+  clone.className = 'fly-to-cart';
+  clone.style.left = startRect.left + 'px';
+  clone.style.top = startRect.top + 'px';
+  clone.style.width = startRect.width + 'px';
+  clone.style.height = startRect.height + 'px';
+  document.body.appendChild(clone);
+  requestAnimationFrame(() => {
+    clone.style.left = endRect.left + endRect.width / 2 - 14 + 'px';
+    clone.style.top = endRect.top + endRect.height / 2 - 14 + 'px';
+    clone.style.width = '28px';
+    clone.style.height = '28px';
+    clone.style.opacity = '0.3';
+  });
+  setTimeout(() => clone.remove(), 700);
 }
 
 function closeModal() {
@@ -228,9 +337,11 @@ function selectModalColor(c) {
 
 function modalAddToCart() {
   if (!modalProduct) return;
-  addToCart(modalProduct, modalSize, modalColor, 1);
+  addToCart(modalProduct, modalSize, modalColor, modalQty);
   showToast(`✓ Agregado: ${modalProduct.name}`);
   bounceCart();
+  const img = document.getElementById('modal-img');
+  if (img) flyToCart(img);
   closeModal();
 }
 

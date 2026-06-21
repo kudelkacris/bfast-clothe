@@ -199,11 +199,18 @@
       <h2>Todos los productos</h2>
     </div>
   </div>
-  <div class="catalog-search-wrap">
+  <div class="catalog-toolbar">
     <div class="catalog-search">
       <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" id="catalog-search-input" placeholder="Buscar en el catálogo..." oninput="searchCatalogo(this.value)" autocomplete="off">
     </div>
+    <select class="catalog-sort" id="catalog-sort" onchange="sortCatalogo(this.value)">
+      <option value="relevancia">Ordenar por: Relevancia</option>
+      <option value="precio-asc">Precio: menor a mayor</option>
+      <option value="precio-desc">Precio: mayor a menor</option>
+      <option value="nuevo">Más nuevo</option>
+      <option value="vendido">Más vendido</option>
+    </select>
   </div>
   <div class="filters" id="filters">
     <button class="filter-chip active" data-cat="todos" onclick="filterCatalogo('todos')">Todos</button>
@@ -343,7 +350,7 @@
       <h4>Ayuda</h4>
       <ul>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="#">Guía de talles</a></li>
+        <li><a href="#" onclick="openSizeGuide(); return false;">Guía de talles</a></li>
         <li><a href="#">Envíos</a></li>
         <li><a href="#">Cambios y devoluciones</a></li>
       </ul>
@@ -404,18 +411,60 @@
       <div id="modal-price-row" class="card-price-row" style="margin-bottom:16px"></div>
       <p id="modal-desc" class="modal-desc"></p>
       <div class="modal-section">
-        <div class="modal-label">Talle</div>
+        <div class="modal-label">Talle <span class="size-guide-link" onclick="openSizeGuide()">Ver guía de talles</span></div>
         <div id="modal-sizes" class="opt-group"></div>
       </div>
       <div class="modal-section">
         <div class="modal-label">Color</div>
         <div id="modal-colors" class="opt-group"></div>
       </div>
+      <div class="modal-section">
+        <div class="modal-label">Cantidad</div>
+        <div class="qty-selector-modal">
+          <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
+          <span id="modal-qty">1</span>
+          <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+        </div>
+      </div>
       <div class="modal-actions">
         <button class="btn btn-primary" onclick="modalAddToCart()">+ Agregar al carrito</button>
         <a id="modal-wpp-btn" class="btn btn-outline" target="_blank" rel="noopener">💬 Consultar</a>
+        <button class="btn-share" onclick="shareProduct()" aria-label="Compartir" title="Compartir">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </div>
+      <div class="related-wrap" id="related-wrap" style="display:none">
+        <div class="modal-label">También te puede gustar</div>
+        <div class="related-grid" id="related-grid"></div>
       </div>
     </div>
+  </div>
+  <div class="modal-sticky-bar" id="modal-sticky-bar">
+    <button class="btn btn-primary" onclick="modalAddToCart()">+ Agregar — <span id="sticky-price"></span></button>
+  </div>
+</div>
+
+<!-- GUÍA DE TALLES -->
+<div class="modal-overlay" id="size-guide-overlay" onclick="closeSizeGuide()"></div>
+<div class="product-modal" id="size-guide-modal" role="dialog" aria-modal="true" style="width:min(520px,92vw)">
+  <button class="modal-close" onclick="closeSizeGuide()" aria-label="Cerrar">✕</button>
+  <div style="padding:36px 32px;">
+    <h2 class="modal-title" style="margin-top:0">Guía de talles</h2>
+    <p class="modal-desc">Medidas aproximadas en centímetros. Si estás entre dos talles, te recomendamos el más grande.</p>
+    <div class="size-table-wrap">
+      <table class="size-table">
+        <thead>
+          <tr><th>Talle</th><th>Busto</th><th>Cintura</th><th>Cadera</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>84-88</td><td>66-70</td><td>90-94</td></tr>
+          <tr><td>M</td><td>89-93</td><td>71-75</td><td>95-99</td></tr>
+          <tr><td>L</td><td>94-98</td><td>76-80</td><td>100-104</td></tr>
+          <tr><td>XL</td><td>99-104</td><td>81-86</td><td>105-110</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="modal-desc" style="margin-top:16px; margin-bottom:0;">¿Dudas con tu talle? <a href="#" id="size-guide-wpp" target="_blank" style="color:var(--terracota); font-weight:600;">Preguntanos por WhatsApp</a>.</p>
   </div>
 </div>
 
