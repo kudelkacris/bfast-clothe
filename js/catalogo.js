@@ -14,6 +14,7 @@ const COLOR_MAP = {
   'Verde salvia': '#8A9A82', 'Crudo': '#EDE8DC', 'Camel': '#C9A06A',
   'Gris melange': '#B5B5B0', 'Blanco': '#F0EDE8', 'Celeste': '#A8D1E7',
   'Bordo': '#7B2D3A', 'Verde botella': '#3A5E3A', 'Rosa viejo': '#D4A0A0',
+  'Rojo': '#B5402F', 'Verde': '#5E8A5E',
 };
 
 // Reviews hardcodeadas

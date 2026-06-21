@@ -154,5 +154,18 @@
     "stock": 6,
     "image": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&h=750&fit=crop",
     "description": "Campera de jean clásica, atemporal. Combina con todo."
+  },
+  {
+    "id": 13,
+    "name": "Jean Sastrero",
+    "category": "jeans",
+    "price": 10000,
+    "oldPrice": 15000,
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "colors": ["Negro", "Rojo", "Verde"],
+    "tags": ["nuevo"],
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=750&fit=crop",
+    "description": "El mejor jean precio calidad."
   }
 ]
