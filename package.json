@@ -1,0 +1,24 @@
+{
+  "name": "bfast-clothe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo-record.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kudelkacris/bfast-clothe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kudelkacris/bfast-clothe/issues"
+  },
+  "homepage": "https://github.com/kudelkacris/bfast-clothe#readme",
+  "dependencies": {
+    "playwright": "^1.61.0"
+  }
+}
