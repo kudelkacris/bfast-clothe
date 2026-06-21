@@ -1,171 +1,296 @@
 [
   {
+    "category": "conjuntos",
+    "colors": [
+      "Beige",
+      "Gris"
+    ],
+    "description": "Conjunto comodísimo de bremer oversize y jogger tiro alto. Tela suave, ideal para el día a día.",
     "id": 1,
+    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=750&fit=crop",
     "name": "Conjunto Oversize Bremer + Jogger",
-    "category": "conjuntos",
+    "oldPrice": null,
     "price": 24500,
-    "oldPrice": null,
-    "sizes": ["S", "M", "L", "XL"],
-    "colors": ["Beige", "Gris"],
-    "tags": ["nuevo"],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
     "stock": 8,
-    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=750&fit=crop",
-    "description": "Conjunto comodísimo de bremer oversize y jogger tiro alto. Tela suave, ideal para el día a día."
+    "tags": [
+      "nuevo"
+    ]
   },
   {
-    "id": 2,
-    "name": "Vestido Lencero Midi",
     "category": "vestidos",
-    "price": 19900,
-    "oldPrice": 26900,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Negro", "Terracota"],
-    "tags": ["oferta", "mas-vendido"],
-    "stock": 12,
+    "colors": [
+      "Negro",
+      "Terracota"
+    ],
+    "description": "Vestido lencero de caída suave, entallado en la cintura. Para el día o la noche.",
+    "id": 2,
     "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=750&fit=crop",
-    "description": "Vestido lencero de caída suave, entallado en la cintura. Para el día o la noche."
+    "name": "Vestido Lencero Midi",
+    "oldPrice": 26900,
+    "price": 19900,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": 12,
+    "tags": [
+      "oferta",
+      "mas-vendido"
+    ]
   },
   {
+    "category": "jeans",
+    "colors": [
+      "Azul claro",
+      "Azul oscuro"
+    ],
+    "description": "El jean que nunca falla. Tiro alto, mom fit, elastizado para mayor comodidad.",
     "id": 3,
-    "name": "Jean Mom Fit Tiro Alto",
-    "category": "jeans",
-    "price": 22000,
-    "oldPrice": null,
-    "sizes": ["36", "38", "40", "42", "44"],
-    "colors": ["Azul claro", "Azul oscuro"],
-    "tags": ["mas-vendido"],
-    "stock": 15,
     "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&h=750&fit=crop",
-    "description": "El jean que nunca falla. Tiro alto, mom fit, elastizado para mayor comodidad."
+    "name": "Jean Mom Fit Tiro Alto",
+    "oldPrice": null,
+    "price": 22000,
+    "sizes": [
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "stock": 15,
+    "tags": [
+      "mas-vendido"
+    ]
   },
   {
-    "id": 4,
-    "name": "Blusa Satinada Manga Larga",
     "category": "blusas",
-    "price": 16500,
-    "oldPrice": null,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Verde salvia", "Crudo"],
-    "tags": ["nuevo"],
-    "stock": 10,
+    "colors": [
+      "Verde salvia",
+      "Crudo"
+    ],
+    "description": "Blusa satinada liviana, ideal para combinar con jean o pantalón de vestir.",
+    "id": 4,
     "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&h=750&fit=crop",
-    "description": "Blusa satinada liviana, ideal para combinar con jean o pantalón de vestir."
-  },
-  {
-    "id": 5,
-    "name": "Sweater Trenzado Cuello Alto",
-    "category": "sweaters",
-    "price": 21000,
-    "oldPrice": 27000,
-    "sizes": ["S", "M", "L", "XL"],
-    "colors": ["Camel", "Gris melange"],
-    "tags": ["oferta"],
-    "stock": 6,
-    "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=750&fit=crop",
-    "description": "Sweater de punto trenzado, cuello alto. Abrigado sin perder estilo."
-  },
-  {
-    "id": 6,
-    "name": "Pantalón Palazzo Fluido",
-    "category": "pantalones",
-    "price": 18900,
+    "name": "Blusa Satinada Manga Larga",
     "oldPrice": null,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Negro", "Beige"],
-    "tags": [],
-    "stock": 9,
-    "image": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?w=600&h=750&fit=crop",
-    "description": "Pantalón de caída fluida, tiro alto. Estiliza y es súper cómodo."
-  },
-  {
-    "id": 7,
-    "name": "Camisa Oversize Lino",
-    "category": "camisas",
-    "price": 20500,
-    "oldPrice": null,
-    "sizes": ["S/M", "L/XL"],
-    "colors": ["Blanco", "Celeste"],
-    "tags": ["nuevo"],
-    "stock": 11,
-    "image": "https://images.unsplash.com/photo-1598961942613-ba897716405b?w=600&h=750&fit=crop",
-    "description": "Camisa oversize de lino, fresca para el verano. Se puede usar suelta o anudada."
-  },
-  {
-    "id": 8,
-    "name": "Conjunto Deportivo Premium",
-    "category": "conjuntos",
-    "price": 27900,
-    "oldPrice": 32900,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Negro", "Bordo"],
-    "tags": ["oferta", "mas-vendido"],
-    "stock": 7,
-    "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=750&fit=crop",
-    "description": "Conjunto deportivo de calidad premium. Top y calza de compresión suave."
-  },
-  {
-    "id": 9,
-    "name": "Falda Tableada Midi",
-    "category": "faldas",
-    "price": 17500,
-    "oldPrice": null,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Verde botella", "Negro"],
-    "tags": ["nuevo"],
-    "stock": 5,
-    "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&h=750&fit=crop",
-    "description": "Falda tableada midi, cintura alta. Elegante y versátil."
-  },
-  {
-    "id": 10,
-    "name": "Buzo Canguro Oversize",
-    "category": "buzos",
-    "price": 19000,
-    "oldPrice": null,
-    "sizes": ["S", "M", "L", "XL"],
-    "colors": ["Gris", "Rosa viejo"],
-    "tags": ["mas-vendido"],
-    "stock": 14,
-    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=750&fit=crop",
-    "description": "Buzo canguro oversize, frisado por dentro. El básico que no puede faltar."
-  },
-  {
-    "id": 11,
-    "name": "Top Cruzado Escote V",
-    "category": "tops",
-    "price": 12900,
-    "oldPrice": 16900,
-    "sizes": ["S", "M", "L"],
-    "colors": ["Negro", "Blanco", "Terracota"],
-    "tags": ["oferta"],
-    "stock": 13,
-    "image": "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600&h=750&fit=crop",
-    "description": "Top cruzado con escote en V, tela suave con algo de elastano."
-  },
-  {
-    "id": 12,
-    "name": "Campera de Jean Clásica",
-    "category": "camperas",
-    "price": 29900,
-    "oldPrice": null,
-    "sizes": ["S", "M", "L", "XL"],
-    "colors": ["Azul claro"],
-    "tags": ["nuevo"],
-    "stock": 6,
-    "image": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&h=750&fit=crop",
-    "description": "Campera de jean clásica, atemporal. Combina con todo."
-  },
-  {
-    "id": 13,
-    "name": "Jean Sastrero",
-    "category": "jeans",
-    "price": 10000,
-    "oldPrice": 15000,
-    "sizes": ["S", "M", "L", "XL", "XXL"],
-    "colors": ["Negro", "Rojo", "Verde"],
-    "tags": ["nuevo"],
+    "price": 16500,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
     "stock": 10,
+    "tags": [
+      "nuevo"
+    ]
+  },
+  {
+    "category": "sweaters",
+    "colors": [
+      "Camel",
+      "Gris melange"
+    ],
+    "description": "Sweater de punto trenzado, cuello alto. Abrigado sin perder estilo.",
+    "id": 5,
+    "image": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=750&fit=crop",
+    "name": "Sweater Trenzado Cuello Alto",
+    "oldPrice": 27000,
+    "price": 21000,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 6,
+    "tags": [
+      "oferta"
+    ]
+  },
+  {
+    "category": "pantalones",
+    "colors": [
+      "Negro",
+      "Beige"
+    ],
+    "description": "Pantalón de caída fluida, tiro alto. Estiliza y es súper cómodo.",
+    "id": 6,
+    "image": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?w=600&h=750&fit=crop",
+    "name": "Pantalón Palazzo Fluido",
+    "oldPrice": null,
+    "price": 18900,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": 9,
+    "tags": []
+  },
+  {
+    "category": "camisas",
+    "colors": [
+      "Blanco",
+      "Celeste"
+    ],
+    "description": "Camisa oversize de lino, fresca para el verano. Se puede usar suelta o anudada.",
+    "id": 7,
+    "image": "https://images.unsplash.com/photo-1598961942613-ba897716405b?w=600&h=750&fit=crop",
+    "name": "Camisa Oversize Lino",
+    "oldPrice": null,
+    "price": 20500,
+    "sizes": [
+      "S/M",
+      "L/XL"
+    ],
+    "stock": 11,
+    "tags": [
+      "nuevo"
+    ]
+  },
+  {
+    "category": "conjuntos",
+    "colors": [
+      "Negro",
+      "Bordo"
+    ],
+    "description": "Conjunto deportivo de calidad premium. Top y calza de compresión suave.",
+    "id": 8,
+    "image": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=750&fit=crop",
+    "name": "Conjunto Deportivo Premium",
+    "oldPrice": 32900,
+    "price": 27900,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": 7,
+    "tags": [
+      "oferta",
+      "mas-vendido"
+    ]
+  },
+  {
+    "category": "faldas",
+    "colors": [
+      "Verde botella",
+      "Negro"
+    ],
+    "description": "Falda tableada midi, cintura alta. Elegante y versátil.",
+    "id": 9,
+    "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&h=750&fit=crop",
+    "name": "Falda Tableada Midi",
+    "oldPrice": null,
+    "price": 17500,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": 5,
+    "tags": [
+      "nuevo"
+    ]
+  },
+  {
+    "category": "buzos",
+    "colors": [
+      "Gris",
+      "Rosa viejo"
+    ],
+    "description": "Buzo canguro oversize, frisado por dentro. El básico que no puede faltar.",
+    "id": 10,
+    "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=750&fit=crop",
+    "name": "Buzo Canguro Oversize",
+    "oldPrice": null,
+    "price": 19000,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 14,
+    "tags": [
+      "mas-vendido"
+    ]
+  },
+  {
+    "category": "tops",
+    "colors": [
+      "Negro",
+      "Blanco",
+      "Terracota"
+    ],
+    "description": "Top cruzado con escote en V, tela suave con algo de elastano.",
+    "id": 11,
+    "image": "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600&h=750&fit=crop",
+    "name": "Top Cruzado Escote V",
+    "oldPrice": 16900,
+    "price": 12900,
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "stock": 13,
+    "tags": [
+      "oferta"
+    ]
+  },
+  {
+    "category": "camperas",
+    "colors": [
+      "Azul claro"
+    ],
+    "description": "Campera de jean clásica, atemporal. Combina con todo.",
+    "id": 12,
+    "image": "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=600&h=750&fit=crop",
+    "name": "Campera de Jean Clásica",
+    "oldPrice": null,
+    "price": 29900,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock": 6,
+    "tags": [
+      "nuevo"
+    ]
+  },
+  {
+    "category": "jeans",
+    "colors": [
+      "Negro",
+      "Rojo",
+      "Verde"
+    ],
+    "description": "El mejor jean precio calidad.",
+    "id": 13,
     "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&h=750&fit=crop",
-    "description": "El mejor jean precio calidad."
+    "name": "Jean Sastrero",
+    "oldPrice": 15000,
+    "price": 10000,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": 10,
+    "tags": [
+      "nuevo"
+    ]
   }
 ]
