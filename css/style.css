@@ -321,6 +321,45 @@ header {
   gap: 24px;
 }
 
+/* ===== Carrusel horizontal (más vendidos, ofertas, nuevos) ===== */
+.carousel-wrap { position: relative; }
+.scroll-row {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scroll-row::-webkit-scrollbar { display: none; }
+.scroll-row .card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+.carousel-arrow {
+  position: absolute;
+  top: 38%;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--blanco);
+  color: var(--texto);
+  font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 18px var(--sombra);
+  border: 1px solid var(--borde);
+  z-index: 3;
+  transition: background .2s, transform .2s;
+}
+.carousel-arrow:hover { background: var(--terracota); color: var(--blanco); transform: translateY(-50%) scale(1.08); }
+.carousel-arrow-prev { left: -8px; transform: translateY(-50%); }
+.carousel-arrow-next { right: -8px; transform: translateY(-50%); }
+@media (max-width: 720px) {
+  .scroll-row .card { flex: 0 0 200px; }
+  .carousel-arrow { display: none; }
+}
+
 .card {
   background: var(--blanco);
   border-radius: var(--radius);

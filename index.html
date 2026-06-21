@@ -144,7 +144,11 @@
     </div>
     <a href="#catalogo" class="see-all">Ver todo →</a>
   </div>
-  <div class="grid" id="mas-vendidos-grid"></div>
+  <div class="carousel-wrap">
+    <button class="carousel-arrow carousel-arrow-prev" onclick="scrollRow('mas-vendidos-grid', -1)" aria-label="Anterior">‹</button>
+    <div class="scroll-row" id="mas-vendidos-grid"></div>
+    <button class="carousel-arrow carousel-arrow-next" onclick="scrollRow('mas-vendidos-grid', 1)" aria-label="Siguiente">›</button>
+  </div>
 </section>
 
 <!-- OFERTAS -->
@@ -156,7 +160,11 @@
     </div>
     <a href="#catalogo" class="see-all">Ver todo →</a>
   </div>
-  <div class="grid" id="ofertas-grid"></div>
+  <div class="carousel-wrap">
+    <button class="carousel-arrow carousel-arrow-prev" onclick="scrollRow('ofertas-grid', -1)" aria-label="Anterior">‹</button>
+    <div class="scroll-row" id="ofertas-grid"></div>
+    <button class="carousel-arrow carousel-arrow-next" onclick="scrollRow('ofertas-grid', 1)" aria-label="Siguiente">›</button>
+  </div>
 </section>
 
 <!-- PROMO BANNER -->
@@ -219,7 +227,11 @@
     </div>
     <a href="#catalogo" class="see-all">Ver todo →</a>
   </div>
-  <div class="grid" id="nuevos-grid"></div>
+  <div class="carousel-wrap">
+    <button class="carousel-arrow carousel-arrow-prev" onclick="scrollRow('nuevos-grid', -1)" aria-label="Anterior">‹</button>
+    <div class="scroll-row" id="nuevos-grid"></div>
+    <button class="carousel-arrow carousel-arrow-next" onclick="scrollRow('nuevos-grid', 1)" aria-label="Siguiente">›</button>
+  </div>
 </section>
 
 <!-- COMO COMPRAR -->

@@ -77,8 +77,15 @@ function cardHTML(p, index) {
 function renderSection(id, items) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.innerHTML = items.slice(0, 4).map((p, i) => cardHTML(p, i)).join('') || '<p style="color:#8A7F73">Próximamente.</p>';
+  el.innerHTML = items.map((p, i) => cardHTML(p, i)).join('') || '<p style="color:#8A7F73">Próximamente.</p>';
   updateWishlistUI();
+}
+
+function scrollRow(id, dir) {
+  const row = document.getElementById(id);
+  if (!row) return;
+  const cardWidth = row.querySelector('.card')?.offsetWidth || 260;
+  row.scrollBy({ left: dir * (cardWidth + 24) * 2, behavior: 'smooth' });
 }
 
 function renderCatalogo(items) {
