@@ -13,7 +13,8 @@
   .admin-head h1 { font-size: 28px; margin-bottom: 8px; }
   .admin-head p { color: var(--texto-claro); font-size: 14.5px; }
   .admin-card { background: var(--blanco); border-radius: var(--radius); padding: 28px; margin-bottom: 28px; box-shadow: 0 2px 10px var(--sombra); }
-  .admin-card h2 { font-size: 19px; margin-bottom: 18px; }
+  .admin-card h2 { font-size: 19px; margin-bottom: 6px; }
+  .admin-card .card-hint { font-size: 13px; color: var(--texto-claro); margin-bottom: 18px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-grid label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--texto); }
   .form-grid input, .form-grid textarea {
@@ -22,17 +23,35 @@
   .full { grid-column: 1 / -1; }
   .checks { display: flex; gap: 18px; font-weight: 500; font-size: 13.5px; align-items: center; }
   .checks label { flex-direction: row; align-items: center; gap: 6px; }
-  .admin-submit { margin-top: 18px; }
+  .admin-submit-row { margin-top: 18px; display: flex; gap: 10px; }
   .admin-row {
     display: flex; align-items: center; gap: 14px;
     padding: 12px 0; border-bottom: 1px solid var(--crema-2);
   }
-  .admin-row img { width: 50px; height: 62px; object-fit: cover; border-radius: 6px; }
-  .admin-row-info { flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; }
+  .admin-row img { width: 50px; height: 62px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+  .admin-row-info { flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; min-width: 0; }
   .admin-row-info span { color: var(--texto-claro); font-size: 12.5px; }
+  .admin-row-stock {
+    width: 64px; padding: 6px 8px; border: 1.5px solid var(--borde); border-radius: 6px;
+    font-size: 13px; text-align: center; font-family: inherit;
+  }
+  .admin-row-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .admin-edit { background: var(--verde-salvia); color: #fff; padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
   .admin-del { background: var(--oferta); color: #fff; padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
-  .admin-actions { display: flex; gap: 12px; margin-top: 20px; }
+  .admin-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
   .back-link { font-size: 13.5px; color: var(--terracota); font-weight: 600; }
+
+  .gh-status { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; background: var(--crema-2); font-size: 13.5px; margin-bottom: 16px; }
+  .gh-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--texto-claro); flex-shrink: 0; }
+  .gh-dot.ok { background: #2BB673; }
+  .gh-status strong { font-weight: 600; }
+  .gh-token-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .gh-token-row input { flex: 1; min-width: 220px; padding: 10px 14px; border: 1.5px solid var(--borde); border-radius: 8px; font-size: 13.5px; font-family: monospace; }
+  .gh-help { font-size: 12.5px; color: var(--texto-claro); margin-top: 10px; line-height: 1.6; }
+  .gh-help a { color: var(--terracota); font-weight: 600; }
+  .btn-publish { background: #2BB673; color: #fff; }
+  .btn-publish:hover { background: #239a5f; }
+  .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -41,11 +60,28 @@
   <div class="admin-head">
     <a href="index.html" class="back-link">← Volver a la tienda</a>
     <h1>Panel de carga · BFast Clothe</h1>
-    <p>Cargá ropa nueva acá. Cuando termines, apretá <strong>"Descargar products.json"</strong> y reemplazá ese archivo en la carpeta <code>data/</code> del sitio (o mandámelo a mí y lo subo).</p>
+    <p>Cargá, editá o sacá productos. Al final apretá <strong>"Publicar en la tienda"</strong> para que se vea en vivo automáticamente (sin mandarle nada a nadie).</p>
   </div>
 
   <div class="admin-card">
-    <h2>Agregar producto nuevo</h2>
+    <h2>Conexión con la tienda</h2>
+    <div class="gh-status">
+      <span class="gh-dot" id="gh-dot"></span>
+      <span id="gh-status-text">Sin conectar — pegá tu token para poder publicar.</span>
+    </div>
+    <div class="gh-token-row">
+      <input type="password" id="gh-token-input" placeholder="Pegá aquí tu token de acceso">
+      <button class="btn btn-outline" onclick="saveGhToken()">Guardar token</button>
+      <button class="btn btn-outline" onclick="clearGhToken()">Borrar token</button>
+    </div>
+    <div class="gh-help">
+      Este token te lo pasa Niki una sola vez. Queda guardado solo en este navegador (no se sube a ningún lado). Si cambiás de celular o borrás los datos del navegador, vas a necesitar que te lo vuelva a pasar.
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h2 id="form-title">Agregar producto nuevo</h2>
+    <p class="card-hint">Completá los datos. Si dejás la foto en blanco, mandala por WhatsApp y se la agrega a mano.</p>
     <form id="admin-form" onsubmit="addProductFromForm(event)">
       <div class="form-grid">
         <label class="full">Nombre del producto
@@ -81,15 +117,20 @@
           <label><input type="checkbox" name="tagVendido"> Más vendido</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary admin-submit">+ Agregar producto</button>
+      <div class="admin-submit-row">
+        <button type="submit" class="btn btn-primary" id="form-submit-btn">+ Agregar producto</button>
+        <button type="button" class="btn btn-outline" id="form-cancel-btn" onclick="cancelEdit()" style="display:none">Cancelar edición</button>
+      </div>
     </form>
   </div>
 
   <div class="admin-card">
     <h2>Productos cargados</h2>
+    <p class="card-hint">Cambiá el stock directo en el numerito, o editá/eliminá un producto.</p>
     <div id="admin-list"></div>
     <div class="admin-actions">
-      <button class="btn btn-primary" onclick="exportJSON()">⬇ Descargar products.json</button>
+      <button class="btn btn-publish" id="publish-btn" onclick="publishToGitHub()">🚀 Publicar en la tienda</button>
+      <button class="btn btn-outline" onclick="exportJSON()">⬇ Descargar products.json (respaldo)</button>
     </div>
   </div>
 </div>
